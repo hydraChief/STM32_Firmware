@@ -1,0 +1,16 @@
+{
+    "cortex-debug.stutilPath": "C:\\stlink-1.7.0-x86_64-w64-mingw32\\bin\\st-util",
+  "files.associations": {
+    "scb.h": "c",
+    "flash.h": "c",
+    "systick.h": "c",
+    "timer.h": "c",
+    "api-io.h": "c",
+    "vector.h": "c",
+    "api-uart.h": "c",
+    "pins.h": "c",
+    "sync.h": "c",
+    "ring-buffer.h": "c",
+    "flash_common_all.h": "c"
+  }
+}
