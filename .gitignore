@@ -1,4 +1,5 @@
-./app/*.elf
-./app/*.map
-./app/*.bin
-./app/*.hex
+/app/*.elf
+/app/*.map
+/app/*.bin
+/app/*.hex
+
