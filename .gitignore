@@ -3,3 +3,7 @@
 /app/*.bin
 /app/*.hex
 
+*.o
+*.d
+*.list
+*.srec
