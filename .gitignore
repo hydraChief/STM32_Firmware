@@ -1,0 +1,4 @@
+./app/*.elf
+./app/*.map
+./app/*.bin
+./app/*.hex
