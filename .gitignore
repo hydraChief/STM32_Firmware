@@ -1,7 +1,7 @@
-/app/*.elf
-/app/*.map
-/app/*.bin
-/app/*.hex
+*.elf
+*.map
+*.bin
+*.hex
 
 *.o
 *.d
