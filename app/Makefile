@@ -5,11 +5,13 @@ Q		:= @
 NULL		:= 2>/dev/null
 endif
 
-SRC_DIR     = src
-INC_DIR     = inc
-OPENCM3_DIR = ../libopencm3
+SRC_DIR     	= src
+INC_DIR     	= inc
+OPENCM3_DIR 	= ../libopencm3
+SHARED_INC_DIR	= ../shared/inc
+SHARED_SRC_DIR	= ../shared/src
 
-BINARY = firmware
+BINARY 	= firmware
 
 ###############################################################################
 # Basic Device Setup
@@ -31,6 +33,7 @@ LDFLAGS		+= -L$(OPENCM3_DIR)/lib
 
 DEFS		+= -I$(OPENCM3_DIR)/include
 DEFS		+= -I$(INC_DIR)
+DEFS		+= -I$(SHARED_INC_DIR)
 
 ###############################################################################
 # Executables
@@ -56,8 +59,8 @@ CSTD		?= -std=c99
 
 OBJS		+= $(SRC_DIR)/$(BINARY).o
 OBJS		+= $(SRC_DIR)/bootloader.o
-OBJS		+= $(SRC_DIR)/core/system.o
-OBJS		+= $(SRC_DIR)/core/timer.o
+OBJS		+= $(SHARED_SRC_DIR)/core/system.o
+OBJS		+= $(SRC_DIR)/timer.o
 
 ###############################################################################
 # C flags

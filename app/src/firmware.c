@@ -4,7 +4,7 @@
 
 
 #include "core/system.h"
-#include "core/timer.h"
+#include "timer.h"
 
 #define LED_PORT GPIOA
 #define LED_PIN GPIO5
