@@ -16,6 +16,8 @@
     "timer_common_f24.h": "c",
     "timer_common_all.h": "c",
     "gpio_common_f24.h": "c",
-    "rcc.h": "c"
+    "rcc.h": "c",
+    "system.h": "c",
+    "nvic.h": "c"
   }
 }
