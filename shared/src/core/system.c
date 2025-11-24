@@ -26,3 +26,10 @@ void system_setup(void){
     rcc_setup();
     system_systick_setup();
 }
+
+void system_delay(uint32_t ms){
+    const uint64_t end_time=system_get_ticks()+(uint64_t)ms;
+    while(system_get_ticks()<end_time){
+        __asm__("nop");
+    }
+}

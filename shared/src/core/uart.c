@@ -3,22 +3,27 @@
 #include<libopencm3/stm32/usart.h>
 
 #include "core/uart.h"
+#include "core/ring_buffer.h"
 
-#define UART_BAUDRATE 115200
+#define UART_BAUDRATE (115200)
+#define RING_BUFFER_SIZE (64)
 
-static uint8_t data_buffer = 0U;
-static bool data_available = false;
+static uint32_t buffer[RING_BUFFER_SIZE] = {0U};
+static ring_buffer_t rb = {0U};
 
 void usart2_isr(void){
     const bool overrun_occured=usart_get_flag(USART2, USART_SR_ORE)==1;
     const bool received_data=usart_get_flag(USART2, USART_FLAG_RXNE)==1;
     if(overrun_occured || received_data){
-        data_buffer = (uint8_t)usart_recv(USART2);
-        data_available = true;
+        if(ring_buffer_write(&rb, (uint32_t)usart_recv(USART2))){
+
+        }
     }
 }
 
 void uart_setup(void){
+    ring_buffer_setup(&rb, buffer, RING_BUFFER_SIZE);
+
     rcc_periph_clock_enable(RCC_USART2);
 
     usart_set_mode(USART2, USART_MODE_TX_RX);
@@ -45,19 +50,23 @@ void uart_write_byte(uint8_t data){
 }
 
 uint8_t uart_read(uint8_t *data, const uint32_t length){
-    if (length>0 && data_available){
-        *data = data_buffer;
-        data_available = false;
-        return 1;
+    if (length>0 ){
+        for(uint32_t i=0; i<length; i++){
+            if(!ring_buffer_read(&rb, (uint32_t*)&data[i])){
+                return i;
+            }
+        }
+        return length;
     }
     return 0;
 }
 
 uint8_t uart_read_byte(void){
-    data_available = false;
-    return data_buffer;
+    uint8_t data;
+    (void)uart_read(&data, 1);
+    return data;
 }
 
 bool uart_data_available(void){
-    return data_available;
+    return !ring_buffer_empty(&rb);
 }
