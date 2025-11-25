@@ -8,21 +8,21 @@
 #define UART_BAUDRATE (115200)
 #define RING_BUFFER_SIZE (64)
 
-static uint32_t buffer[RING_BUFFER_SIZE] = {0U};
+static uint8_t buffer;
 static ring_buffer_t rb = {0U};
 
 void usart2_isr(void){
     const bool overrun_occured=usart_get_flag(USART2, USART_SR_ORE)==1;
     const bool received_data=usart_get_flag(USART2, USART_FLAG_RXNE)==1;
     if(overrun_occured || received_data){
-        if(ring_buffer_write(&rb, (uint32_t)usart_recv(USART2))){
-
+        if(ring_buffer_write(&rb, &(uint8_t){usart_recv(USART2)})){
+            //can't return the error or anything even if success!!
         }
     }
 }
 
 void uart_setup(void){
-    ring_buffer_setup(&rb, buffer, RING_BUFFER_SIZE);
+    ring_buffer_setup(&rb, RING_BUFFER_SIZE, sizeof(buffer), &buffer);
 
     rcc_periph_clock_enable(RCC_USART2);
 

@@ -18,6 +18,9 @@
     "gpio_common_f24.h": "c",
     "rcc.h": "c",
     "system.h": "c",
-    "nvic.h": "c"
+    "nvic.h": "c",
+    "common-defines.h": "c",
+    "uart.h": "c",
+    "memcpy.h": "c"
   }
 }
